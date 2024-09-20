@@ -49,11 +49,9 @@ P[2] = [
 ## Savalge value
 SV = {}
 for i in range(1, 11):
-    SV[i] = 0   # SV[100]=100, and SV[1]=1 (1 is the worst)
+    SV[i] = 0   # SV[1] = 10000, SV[10] = 0 (1 is the worst)
     if i <= 3:
-        SV[i] = 100000
-
-print(SV)
+        SV[i] = 10000
 
 ## cost of each action at each state
 cost = {}
@@ -77,11 +75,11 @@ for x in X:
 a_opt = {}
 
 ## discount factor
-alpha = 1
+alpha = 0.95
 
 # implement MDP
 for t in reversed(T[:-1]):
-# for t in range(98, -1, -1): # moving backward from year 9 to year 1
+# for t in range(99, -1, -1): # moving backward from year 100 to year 1
   for x_i in range(len(X)): # loop through all the states
     V_0 = cost[0, X[x_i]] + alpha * sum(P[0, x_i, j] * V_fn[t + 1, X[j]] for j in range(len(X)))
     V_1 = cost[1, X[x_i]] + alpha * sum(P[1, x_i, j] * V_fn[t + 1, X[j]] for j in range(len(X)))
